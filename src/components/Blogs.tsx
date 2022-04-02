@@ -4,16 +4,21 @@ import post from './Interfaces'
 
 const Blogs = () => {
   const [posts, setPosts] = useState<post[]>([])
-  useEffect(() => {
+
+  const getInfo = () => {
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then((res) => res.json())
-      .then((data) => setPosts(data))
+      .then((data: post[]) => setPosts(data))
+  }
+
+  useEffect(() => {
+    getInfo()
   }, [])
 
   return (
     <div>
       {
-           posts.map(({ title, body, user }) => <Blog title={title} body={body} user={user} />)
+           posts.map(({ title, body }) => <Blog title={title} body={body} />)
        }
     </div>
   )
